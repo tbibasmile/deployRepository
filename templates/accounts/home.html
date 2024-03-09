@@ -6,9 +6,9 @@
       <div>{{ message.message }}</div>
     {% endfor %}
   {% endif %}
-  <h1>ホーム画面です</h1>
+  <h1>ホーム画面</h1>
   <ul>
-    <li><a href="{% url 'income_list' %}">Income</a></li>
-    <li><a href="{% url 'expense_list' %}">Expense</a></li>
+    <li><a href="{% url 'income_list' %}">収入一覧</a></li>
+    <li><a href="{% url 'expense_list' %}">支出一覧</a></li>
   </ul>
 {% endblock %}
