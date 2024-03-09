@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income List</title>
+    <title>収入一覧</title>
 </head>
 <body>
     <h1>収入一覧</h1>
     <table>
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Actions</th>
+                <th>日付</th>
+                <th>内容</th>
+                <th>金額</th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -21,15 +21,18 @@
             <tr>
                 <td>{{ income.date }}</td>
                 <td>{{ income.description }}</td>
-                <td>{{ income.amount }}</td>
+                <td>{{ income.amount|floatformat:"0"|add:"円" }}</td>
                 <td>
-                    <a href="{% url 'transactions:edit_income' income.pk %}">Edit</a>
-                    <a href="{% url 'delete_income' income.pk %}">Delete</a>
+                    <a href="{% url 'edit_income' income.pk %}">編集</a> <!-- 修正 -->
+                    <a href="{% url 'delete_income' income.pk %}">削除</a> <!-- 修正 -->
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'add_income' %}">Add Income</a>  <!-- 変更 -->
+    <a href="{% url 'add_income' %}">収入を追加</a><br><br>  <!-- 修正 -->
+
+    <!-- 戻るボタン -->
+    <button onclick="history.back()">戻る</button>
 </body>
 </html>

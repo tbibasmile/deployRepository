@@ -3,14 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense List</title>
+    <title>支出一覧</title>
+    <style>
+        .button-group {
+            display: flex;
+            align-items: center;
+        }
+        .button-group button {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>支出一覧</h1>
-    <ul>
-        {% for expense in expenses %}
-            <li>{{ expense.date }} - {{ expense.description }} - {{ expense.amount }}</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>日付</th>
+                <th>内容</th>
+                <th>金額</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.date }}</td>
+                <td>{{ expense.description }}</td>
+                <td>{{ expense.amount|floatformat:"0"|add:"円" }}</td>
+                <td>
+                    <a href="{% url 'edit_expense' expense.pk %}">編集</a> <!-- 修正 -->
+                    <a href="{% url 'delete_expense' expense.pk %}">削除</a> <!-- 修正 -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- 支出を追加リンク -->
+    <a href="{% url 'add_expense' %}">支出を追加</a><br><br>  
+
+    <div class="button-group">
+        <!-- 戻るボタン -->
+        <button onclick="history.back()">戻る</button>
+    </div>
 </body>
 </html>
