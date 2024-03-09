@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 def home(request):
     return render(request, 'accounts/home.html')
 
+# 修正後のregistビュー
 def regist(request):
     regist_form = forms.RegistForm(request.POST or None)
     if regist_form.is_valid():
@@ -17,7 +18,8 @@ def regist(request):
             user = regist_form.save(commit=False)
             user.is_active = True  # フラグを1に設定
             user.save()
-            return redirect('accounts:home')
+            # 新規ユーザー登録後、ログインページにリダイレクトする
+            return redirect('accounts:user_login')
         except ValidationError as e:
             regist_form.add_error('password', e)        
     return render(request, 'accounts/regist.html', context={'regist_form': regist_form})
@@ -59,7 +61,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     messages.success(request, 'ログアウトしました')
-    return redirect('accounts:home')
+    return redirect('welcome')  # Welcomeページにリダイレクトする
 
 # 新しいビュー関数を追加
 def add_income(request):
